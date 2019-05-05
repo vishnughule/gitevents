@@ -2,12 +2,11 @@ package com.github.events.giteventsapi.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
-
-	@JsonProperty(value = "id")
-	private Long id;
 
 	@JsonProperty(value = "type")
 	private String type;
@@ -19,24 +18,19 @@ public class Event {
 	private Date createdAt;
 
 	private Actor actor;
-	
+
+	@JsonProperty(value = "payload")
+	private Payload payLoad;
+
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Event(String type, Date createdAt, Actor actor) {
-		this.type= type;
-		this.createdAt=createdAt;
-		this.actor=actor;
-		
-	}
+		this.type = type;
+		this.createdAt = createdAt;
+		this.actor = actor;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getType() {
@@ -69,6 +63,14 @@ public class Event {
 
 	public void setActor(Actor actor) {
 		this.actor = actor;
+	}
+
+	public Payload getPayLoad() {
+		return payLoad;
+	}
+
+	public void setPayLoad(Payload payLoad) {
+		this.payLoad = payLoad;
 	}
 
 }

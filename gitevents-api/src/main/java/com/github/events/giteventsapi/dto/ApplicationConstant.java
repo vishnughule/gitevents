@@ -16,4 +16,6 @@ public class ApplicationConstant {
 			"PullRequestReviewCommentEvent", "PushEvent", "ReleaseEvent", "RepositoryEvent", "RepositoryImportEvent", "RepositoryVulnerabilityAlertEvent",
 			"SecurityAdvisoryEvent", "StarEvent", "StatusEvent", "TeamEvent", "TeamAddEvent", "WatchEvent"));
 
+	public static final String baseUrl= "https://api.github.com/repos/{owner}/{repo}/events?page={page}";
+	
 }
