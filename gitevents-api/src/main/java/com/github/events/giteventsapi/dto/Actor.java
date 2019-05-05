@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Actor {
 
-	@JsonProperty(value = "id")
-	private Long id;
-
 	@JsonProperty(value = "login")
 	private String login;
 
@@ -18,13 +15,14 @@ public class Actor {
 
 	@JsonProperty(value = "avatar_url")
 	private String avatarUrl;
-
-	public Long getId() {
-		return id;
+	
+	public Actor() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Actor(String login , String displayLogin) {
+		this.login= login;
+		this.displayLogin = displayLogin;
 	}
 
 	public String getLogin() {
@@ -58,7 +56,5 @@ public class Actor {
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
 	}
-	
-	
 
 }

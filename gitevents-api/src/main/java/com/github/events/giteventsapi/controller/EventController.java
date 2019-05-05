@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.events.giteventsapi.dto.ApplicationConstant;
 import com.github.events.giteventsapi.dto.Event;
 import com.github.events.giteventsapi.service.EventService;
 
@@ -25,7 +26,11 @@ public class EventController {
 			@PathVariable("eventType") String eventType) {
 		HttpStatus responseStatus = HttpStatus.OK;
 		List<Event> events = null;
-		
+		if(!ApplicationConstant.eventTypes.contains(eventType))
+		{
+			return new ResponseEntity<Object>("Event type is incorrect",HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+		events=eventService.getEvents(owner, repo, eventType);
 		return new ResponseEntity<Object>(events, responseStatus);
 		
 

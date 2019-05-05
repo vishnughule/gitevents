@@ -19,6 +19,17 @@ public class Event {
 	private Date createdAt;
 
 	private Actor actor;
+	
+	public Event() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Event(String type, Date createdAt, Actor actor) {
+		this.type= type;
+		this.createdAt=createdAt;
+		this.actor=actor;
+		
+	}
 
 	public Long getId() {
 		return id;
