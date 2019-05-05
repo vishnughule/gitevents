@@ -1,0 +1,60 @@
+<div>
+  <form class="search-form" (submit) ="searchEvents()">
+    <mat-form-field>
+      <input matInput placeholder="owner" [formControl]="ownerFormControl" />
+    </mat-form-field>
+
+    <mat-form-field >
+      <input matInput placeholder="repo" [formControl]="repoFormControl"/>
+    </mat-form-field>
+
+    <mat-form-field >
+      <input matInput placeholder="eventType" [formControl]="eventTypeFormControl"/>
+    </mat-form-field>
+
+
+    <button type="submit" mat-raised-button color="primary">Search</button>
+
+  </form>
+</div>
+
+  <table mat-table [dataSource]="eventsData" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="ActorName">
+      <th mat-header-cell *matHeaderCellDef> Actor Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.actor.login}} </td>
+    </ng-container>
+
+    <!-- EventType Column -->
+    <ng-container matColumnDef="EventType">
+      <th mat-header-cell *matHeaderCellDef> Event Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="EventDate">
+      <th mat-header-cell *matHeaderCellDef> Event Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="CommitReference">
+      <th mat-header-cell *matHeaderCellDef> Commit Reference </th>
+      <td mat-cell *matCellDef="let element"> {{element.payLoad?.ref}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="CommitMessage">
+      <th mat-header-cell *matHeaderCellDef> Commit Message </th>
+      <td mat-cell *matCellDef="let element"> {{element.payLoad?.commit?.message}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
