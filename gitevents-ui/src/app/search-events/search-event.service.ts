@@ -11,10 +11,9 @@ export class SearchEventService {
   constructor( private http: HttpClient) {
   }
 
-    searchEvents(owner: string, repo: string, eventType: string): Observable<HttpResponse<Event[]>> {
+    searchEvents(owner: string, repo: string, eventType: string): Observable<HttpResponse<any>> {
     const baseurl = 'events/' + owner + '/' + repo + '/' + eventType;
-    console.log(baseurl)
-    return this.http.get<Event[]>(
+    return this.http.get<any>(
       baseurl, { observe: 'response' });
   }
 

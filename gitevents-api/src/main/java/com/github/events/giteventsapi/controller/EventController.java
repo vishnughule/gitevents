@@ -2,6 +2,8 @@ package com.github.events.giteventsapi.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +22,18 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	Logger logger = LoggerFactory.getLogger(EventController.class);
 
 	@GetMapping("/events/{owner}/{repo}/{eventType}")
 	public ResponseEntity<Object> searchEvents(@PathVariable("owner") String owner, @PathVariable("repo") String repo,
 			@PathVariable("eventType") String eventType) {
 		HttpStatus responseStatus = HttpStatus.OK;
 		List<Event> events = null;
-		if(!ApplicationConstant.eventTypes.contains(eventType))
+		boolean isValidEvent= ApplicationConstant.eventTypes.stream().anyMatch(eventType::equalsIgnoreCase);
+		if(!isValidEvent)
 		{
+			logger.error("Event type is invalid " +eventType);
 			return new ResponseEntity<Object>("Event type is incorrect",HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		

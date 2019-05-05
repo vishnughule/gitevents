@@ -2,8 +2,10 @@ package com.github.events.giteventsapi.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
@@ -15,6 +17,7 @@ public class Event {
 	private Boolean isPublic;
 
 	@JsonProperty(value = "created_at")
+	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private Date createdAt;
 
 	private Actor actor;

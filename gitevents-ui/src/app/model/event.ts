@@ -9,6 +9,6 @@ export interface Event {
    isPublic: boolean;
    created_at: string;
    actor: Actor;
-   payLoad: Payload;
+   payload: Payload;
 
 }

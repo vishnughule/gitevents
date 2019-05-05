@@ -12,12 +12,13 @@ import { fromEventPattern } from '../../../node_modules/rxjs';
 export class SearchEventsComponent {
 
   eventsData: Event[];
-  displayedColumns: string[] = ['ActorName', 'EventType', 'EventDate', 'CommitReference' , 'CommitMessage'];
+  displayedColumns: string[] = ['ActorName', 'EventType', 'EventDate', 'CommitReference'];
   owner: string;
   repo: string;
   eventType: string;
   searchForm: FormGroup;
   submitted = false;
+  errorMessage: String;
 
   constructor (private searchEventService: SearchEventService, private formBuilder: FormBuilder) {
     this.createForm();
@@ -44,10 +45,16 @@ export class SearchEventsComponent {
 
   searchEvents() {
     this.submitted = true;
+    this.eventsData = [];
+    this.errorMessage = '';
     this.searchEventService.searchEvents(this.searchForm.get('ownerFormControl').value,
       this.searchForm.get('repoFormControl').value, this.searchForm.get('eventTypeFormControl').value).subscribe(
-      resp => {
-        this.eventsData = resp.body;
+        resp => {
+            this.eventsData = resp.body;
+      }
+      , error => {
+
+        this.errorMessage = error.error;
       }
     );
   }
