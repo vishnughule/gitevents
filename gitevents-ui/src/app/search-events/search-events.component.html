@@ -1,19 +1,29 @@
 <div>
-  <form class="search-form" (submit) ="searchEvents()">
+  <form class="search-form" [formGroup]="searchForm" (ngSubmit) ="searchEvents()">
     <mat-form-field>
-      <input matInput placeholder="owner" [formControl]="ownerFormControl" />
+      <input matInput placeholder="owner" formControlName="ownerFormControl" />
+
+    <mat-error *ngIf="f.ownerFormControl.invalid && (f.ownerFormControl.dirty || f.ownerFormControl.touched) && f.ownerFormControl.errors.required">
+      Please enter a owner name
+    </mat-error>
     </mat-form-field>
 
     <mat-form-field >
-      <input matInput placeholder="repo" [formControl]="repoFormControl"/>
+      <input matInput placeholder="repo" formControlName="repoFormControl"/>
+      <mat-error *ngIf="f.repoFormControl.invalid && (f.repoFormControl.dirty || f.repoFormControl.touched) && f.repoFormControl.errors.required">
+        Please enter a repo name
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field >
-      <input matInput placeholder="eventType" [formControl]="eventTypeFormControl"/>
+      <input matInput placeholder="eventType" formControlName="eventTypeFormControl"/>
+      <mat-error *ngIf="f.eventTypeFormControl.invalid && (f.eventTypeFormControl.dirty || f.eventTypeFormControl.touched) && f.eventTypeFormControl.errors.required">
+        Please enter a event type
+      </mat-error>
     </mat-form-field>
 
 
-    <button type="submit" mat-raised-button color="primary">Search</button>
+    <button type="submit" [disabled]=!searchForm.valid  mat-raised-button color="primary">Search</button>
 
   </form>
 </div>

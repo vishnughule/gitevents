@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchEventService } from './search-event.service';
 import { Event } from '../model/event';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { fromEventPattern } from '../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-search-events',
@@ -15,23 +16,40 @@ export class SearchEventsComponent {
   owner: string;
   repo: string;
   eventType: string;
+  searchForm: FormGroup;
+  submitted = false;
 
-  ownerFormControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  repoFormControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  eventTypeFormControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  constructor (private searchEventService: SearchEventService) {
+  constructor (private searchEventService: SearchEventService, private formBuilder: FormBuilder) {
+    this.createForm();
   }
-  searchEvents() {
 
+  createForm(): void {
+      this.searchForm = this.formBuilder.group({
+        'ownerFormControl': new FormControl(this.owner, [
+          Validators.required
+        ]),
+
+        'repoFormControl': new FormControl(this.repo, [
+          Validators.required
+        ]),
+
+        'eventTypeFormControl': new FormControl(this.eventType, [
+          Validators.required
+        ])
+      }
+      );
+  }
+
+  get f() { return this.searchForm.controls; }
+
+  searchEvents() {
+    this.submitted = true;
+    this.searchEventService.searchEvents(this.searchForm.get('ownerFormControl').value,
+      this.searchForm.get('repoFormControl').value, this.searchForm.get('eventTypeFormControl').value).subscribe(
+      resp => {
+        this.eventsData = resp.body;
+      }
+    );
   }
 }
 
