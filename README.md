@@ -2,7 +2,7 @@
 
 ## Build
 
-To run this project you will need to have maven version of atleast 3.1.0
+To run this project you need to have maven version of atleast 3.1.0
 
 to build this project run  mvn clean install on root of the project gitevents
 
